@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Cleide 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff4e8a, #ff9a9e);
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+/* Corações animados */
+.heart {
+    position: absolute;
+    color: #ff0033;
+    font-size: 20px;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh); opacity: 1;}
+    100% { transform: translateY(-10vh); opacity: 0;}
+}
+
+.container {
+    padding: 20px;
+    margin-top: 50px;
+    animation: fadeIn 1s ease;
+}
+
+button {
+    padding: 12px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 10px;
+    background: white;
+    color: #ff4e8a;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.hidden {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<div class="container" id="start">
+    <h1>Olá Cleide Maulete 💖</h1>
+    <button onclick="startQuiz()">Siga o teu amor ❤️</button>
+</div>
+
+<div class="container hidden" id="quiz">
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+</div>
+
+<div class="container hidden" id="final">
+    <h2>💘 Obrigado por responder</h2>
+    <button onclick="openLetter()">Entra aqui se ainda sentes algo ❤️</button>
+</div>
+
+<div class="container hidden" id="letter">
+    <h2>💌 Para ti...</h2>
+    <p>
+    Tudo começou como brincadeira, hoje tudo virou lembrança,<br><br>
+    tudo pode ser recuperado e pode ser vivido novamente,<br><br>
+    dá-me a chance de ser feliz contigo e te fazer a mulher mais satisfeita do mundo 💗🙈.<br><br>
+    Mande mensagem para <b>857008478</b> e diga se podes fazer esse sacrifício.
+    </p>
+</div>
+
+<script>
+/* Corações */
+function createHearts() {
+    const heartsContainer = document.getElementById("hearts");
+
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+        heartsContainer.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }, 300);
+}
+
+createHearts();
+
+/* Quiz */
+const quiz = [
+    {
+        question: "Quando é que começou a namorar com Thandy Romão?",
+        answers: ["06.08.2023", "10.07.2024", "08.09.2025"],
+        correct: 0
+    },
+    {
+        question: "Você lhe ama?",
+        answers: ["Sim", "Não"],
+        correct: null
+    },
+    {
+        question: "Você acredita que ele te ama?",
+        answers: ["Sim", "Não"],
+        correct: null
+    }
+];
+
+let current = 0;
+
+function startQuiz(){
+    document.getElementById("start").classList.add("hidden");
+    document.getElementById("quiz").classList.remove("hidden");
+    loadQuestion();
+}
+
+function loadQuestion(){
+    const q = quiz[current];
+    document.getElementById("question").innerText = q.question;
+
+    const answersDiv = document.getElementById("answers");
+    answersDiv.innerHTML = "";
+
+    q.answers.forEach((ans, index) => {
+        const btn = document.createElement("button");
+        btn.innerText = ans;
+        btn.onclick = () => nextQuestion();
+        answersDiv.appendChild(btn);
+    });
+}
+
+function nextQuestion(){
+    current++;
+    if(current < quiz.length){
+        loadQuestion();
+    } else {
+        document.getElementById("quiz").classList.add("hidden");
+        document.getElementById("final").classList.remove("hidden");
+    }
+}
+
+function openLetter(){
+    document.getElementById("final").classList.add("hidden");
+    document.getElementById("letter").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
